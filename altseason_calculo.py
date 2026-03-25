@@ -77,8 +77,14 @@ def enviar_telegram(msg):
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
         print("❌ TELEGRAM_TOKEN ou TELEGRAM_CHAT_ID não configurados nos Secrets!")
         return
+    
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": msg, "parse_mode": "Markdown"}
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": msg,
+        "parse_mode": "Markdown"
+    }
+    
     try:
         r = requests.post(url, json=payload, timeout=15)
         if r.status_code == 200:
@@ -87,7 +93,3 @@ def enviar_telegram(msg):
             print(f"❌ Erro ao enviar Telegram: {r.status_code} - {r.text}")
     except Exception as e:
         print(f"❌ Exceção ao enviar Telegram: {e}")
-
-if __name__ == "__main__":
-    mensagem = calcular()
-    enviar_telegram(mensagem)
