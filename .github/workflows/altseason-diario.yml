@@ -1,0 +1,27 @@
+name: Altseason Score Diário
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 10h da manhã em Brasília (13h UTC)
+  workflow_dispatch:       # permite rodar manualmente para testar
+
+jobs:
+  calcular:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install requests
+
+      - name: Rodar o cálculo
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python altseason_calculo.py
