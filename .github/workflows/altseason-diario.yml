@@ -1,9 +1,9 @@
-name: Altseason Score Diário
+name: Altseason Opportunity Index Diário
 
 on:
   schedule:
-    - cron: '0 13 * * *'   # 10h da manhã em Brasília (13h UTC)
-  workflow_dispatch:       # permite rodar manualmente para testar
+    - cron: '0 13 * * *'
+  workflow_dispatch:
 
 jobs:
   calcular:
@@ -19,6 +19,9 @@ jobs:
 
       - name: Instalar dependências
         run: pip install requests
+
+      - name: Mostrar arquivos (debug)
+        run: ls -la
 
       - name: Rodar o cálculo
         env:
