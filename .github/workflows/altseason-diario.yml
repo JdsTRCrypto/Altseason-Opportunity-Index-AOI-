@@ -2,7 +2,7 @@ name: Altseason Opportunity Index Diário
 
 on:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: '0 13 * * *'   # 10h da manhã em Brasília
   workflow_dispatch:
 
 jobs:
@@ -20,10 +20,10 @@ jobs:
       - name: Instalar dependências
         run: pip install requests
 
-      - name: Mostrar arquivos (debug)
+      - name: Mostrar arquivos do projeto (debug)
         run: ls -la
 
-      - name: Rodar o cálculo
+      - name: Rodar o cálculo e enviar no Telegram
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
